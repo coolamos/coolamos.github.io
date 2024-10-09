@@ -3,337 +3,103 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="./static/css/style.css" rel="stylesheet" />
         <title>Amos Blog</title>
-        <style>
-            body {
-                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-                background-color: #f0f8ff;
-                color: #333;
-                margin: 0;
-                padding: 0;
-                line-height: 1.6;
-            }
-            .bg {
-                height: 300px;
-                overflow: hidden;
-                position: absolute;
-                width: 100%;
-                z-index: -1;
-            }
-            .bg img {
-                object-fit: cover;
-            }
-            .header-container {
-                position: relative;
-                z-index: 1;
-                text-align: center;
-                /*padding: 40px 20px;*/
-                /* background-image: url("https://img.win3000.com/m00/cb/8c/6b999f13e78b5ab0dfe5e3c92eea989b.jpg"); */
-                background-size: 100% auto;
-                color: #0673f0;
-                border-bottom: 5px #4682b4;
-                height: 220px;
-            }
-
-            .toggle {
-                width: 32px;
-                height: 32px;
-                background: #fff;
-                position: fixed;
-                top: 5px;
-                right: 5px;
-                text-align: center;
-                color: #f00;
-                line-height: 32px;
-                display: none;
-
-
-            }
-
-            @media screen and (max-width: 720px) {
-                .toggle {
-                    display: block;
-                }
-                .nav-wrapper:hover nav{
-                    display:flex;
-                }
-            }
-            nav {
-                margin: 10px 0;
-            }
-            nav a {
-                margin: 0 15px;
-                color: #4682b4;
-                text-decoration: none;
-                font-weight: bold;
-                transition: color 0.3s;
-            }
-            nav a:hover {
-                color: #ffcc00;
-            }
-
-@keyframes slideshow{
-    from{height: 0px;}
-    to{height: 66px;}
-}
-
-            @media screen and (max-width: 720px) {
-                nav {
-                    display: flex;
-                    width: 140px;
-                    background: #fff;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                    flex-direction: column;
-                    padding: 5px 0;
-                    position: fixed;
-                    right: 5px;
-                    top: 36px;
-                    display: none;
-                    animation: slideshow 0.35s ease-in-out forwards;
-                }
-
-                nav a {
-                    line-height: 28px;
-                    font-size: 14px;
-                    margin: 0;
-                }
-                nav a:hover {
-                    background-color: #f7f7f7;
-                    font-weight: bold;
-                }
-            }
-
-            .container {
-                display: flex;
-                margin: 20px;
-            }
-            .sidebar {
-                height: 400px;
-                overflow: auto;
-
-                flex: 0 0 25%;
-                margin-right: 20px;
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                margin-bottom: 20px;
-            }
-            .sidebar::-webkit-scrollbar {
-                width: 2px;
-                height: 2px;
-            }
-            .sidebar::-webkit-scrollbar-track,
-            .sidebar::-webkit-scrollbar-track-piece {
-                background-color: #fafafa;
-                border-radius: 6px;
-            }
-            .sidebar::-webkit-scrollbar-thumb {
-                background-color: #eee;
-                border-radius: 6px;
-            }
-            .sidebar::-webkit-scrollbar-button,
-            .sidebar::-webkit-scrollbar-corner,
-            .sidebar::-webkit-resizer {
-                display: none;
-            }
-            .main {
-                flex: 1;
-            }
-            .search-container {
-            }
-            input[type="text"],
-            select,
-            textarea {
-                width: calc(100% - 20px);
-                padding: 10px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                /* margin-bottom: 10px; */
-            }
-            article {
-                margin-bottom: 20px;
-                padding: 20px;
-                border-radius: 8px;
-                background-color: #ffffff;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            h2 {
-                color: #4682b4;
-            }
-            footer {
-                text-align: center;
-                margin-top: 20px;
-                font-size: 0.9em;
-                color: #666;
-                padding: 10px 0;
-                background-color: #f0f8ff;
-                border-top: 1px solid #ccc;
-            }
-            .comment-section {
-                margin-top: 20px;
-                padding: 20px;
-                background-color: #ffffff;
-                border-radius: 8px;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-            .form-group {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 15px;
-            }
-            .form-group > div {
-                margin-right: 10px;
-            }
-            button {
-                padding: 10px 15px;
-                background-color: #4682b4;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                text-align: center;
-            }
-            button:hover {
-                background-color: #ffcc00;
-            }
-
-            .type {
-                display: inline-flex;
-                align-items: center;
-            }
-            .type label {
-                white-space: nowrap;
-            }
-
-
-        </style>
     </head>
     <body>
-        <header>
-            <div class="bg">
-                <img src="./bg.png" alt="" />
+        <header class="c-header">
+            <div class="c-header__bg">
+                <img src="./static/img/bg.png" alt="" />
             </div>
-            <div class="header-container">
-                <h1>Amos Blog</h1>
-
-                <p>分享生活的点滴与感悟</p>
-                <div class="nav-wrapper">
-                    <div class="toggle">☰</div>
-                    <nav>
-                        <a href="#">My Tweet</a>
-                        <a href="#">My Bili</a>
+            <div class="c-header__container">
+                <h1 class="u-title">Amos Blog</h1>
+                <p class="u-description">分享生活的点滴与感悟</p>
+                <div class="c-header__nav">
+                    <div class="u-toggle">☰</div>
+                    <nav class="u-list">
+                        <a class="u-item" href="#">My Tweet</a>
+                        <a class="u-item" href="#">My Bili</a>
                     </nav>
                 </div>
             </div>
-
-
         </header>
 
-        <div class="container">
-            <aside class="sidebar">
-                <div class="search-container">
-                    <input type="text" placeholder="搜索..." />
+        <div class="p-index">
+            <aside class="c-sidebar">
+                <div class="c-sidebar__search">
+                    <input class="u-input" type="text" placeholder="搜索..." />
                 </div>
-                <div class="catogory">
-                    <h3>分类</h3>
-                    <ul>
-                        <li>前端</li>
-                        <li>后端</li>
-                        <li>代码</li>
-
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
-                        <li>测试</li>
+                <div class="c-sidebar__catogory">
+                    <h3 class="u-title">分类</h3>
+                    <ul class="u-list">
+                        <li class="u-item">前端</li>
+                        <li class="u-item">后端</li>
+                        <li class="u-item">设计</li>
                     </ul>
                 </div>
             </aside>
 
-            <main class="main">
-                <article>
-                    <h2>第一篇博客文章</h2>
-                    <p>欢迎来到我的博客！这里记录了我的生活和思考，期待与你分享更多。</p>
-                    <p>今天的心情非常愉快，阳光明媚，适合出游。</p>
-                </article>
+            <main class="c-main">
+                <div class="m-index-list">
+                    <article class="m-index-list__item">
+                        <h2 class="u-title">第一篇博客文章</h2>
+                        <div class="u-content">
+                            <p>欢迎来到我的博客！这里记录了我的生活和思考，期待与你分享更多。</p>
+                            <p>今天的心情非常愉快，阳光明媚，适合出游。</p>
+                        </div>
+                    </article>
 
-                <!-- <article>
+                    <!-- <article>
                     <h2>第二篇博客文章</h2>
                     <p>生活中总会有一些小确幸，比如一杯咖啡的香气，或者一段美好的音乐。</p>
                     <p>希望大家都能在繁忙的生活中找到属于自己的小清新时刻。</p>
                 </article> -->
+                </div>
             </main>
         </div>
 
-        <div class="comment-section">
-            <h3>留言区</h3>
-            <form>
-                <div class="form-group">
-                    <div class="type">
-                        <label for="feedback-type">选择反馈类型：</label>
-                        <select id="feedback-type">
+        <div class="c-comment">
+            <h3 class="c-comment__title">留言区</h3>
+            <form class="c-comment__form">
+                <div class="c-comment__form-header">
+                    <div class="c-comment__form-item">
+                        <label class="u-label" for="type">选择反馈类型：</label>
+                        <select class="u-value" id="type">
                             <option value="suggestion">建议</option>
                             <option value="bug">Bug</option>
                         </select>
                     </div>
-                    <div class="visible">
-                        <label>是否公开：</label>
-                        <label>
+                    <div class="c-comment__form-item">
+                        <label class="u-label">是否公开：</label>
+                        <label class="u-value">
                             <input type="radio" name="visibility" value="public" checked />
                             公开
                         </label>
-                        <label>
+                        <label class="u-value">
                             <input type="radio" name="visibility" value="private" />
                             不公开
                         </label>
                     </div>
-                    <div class="notify">
-                        <label>
+                    <div class="c-comment__form-item">
+                        <label class="u-value">
                             <input type="checkbox" name="notify" />
                             接受回复提醒
                         </label>
                     </div>
                 </div>
+                <div class="c-comment__form-content">
+                    <label class="u-label" for="message">留言内容：</label>
+                    <textarea class="u-value" id="message" placeholder="在这里写下你的留言..."></textarea>
+                </div>
 
-                <label for="message">留言内容：</label>
-                <textarea id="message" placeholder="在这里写下你的留言..."></textarea>
-                <!-- <br />    /*   -->
-
-                <button type="submit">提交留言</button>
+                <div class="c-comment__form-footer">
+                    <button class="u-btn" type="submit">提交留言</button>
+                </div>
             </form>
         </div>
 
-        <footer>
-            <p>.sidebarcopy; 2024 Amos Blog</p>
+        <footer class="c-footer">
+            <p class="u-copyright">&copy; 2024 Amos Blog</p>
         </footer>
     </body>
 </html>
