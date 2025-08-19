@@ -1,105 +1,244 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="Amos的个人博客，分享生活的点滴与感悟" />
+        <meta name="keywords" content="博客,生活,感悟,前端,技术" />
+        <meta name="author" content="Amos" />
         <link href="./static/css/style.css" rel="stylesheet" />
-        <title>Amos Blog</title>
+        <title>Amos Blog - 分享生活的点滴与感悟</title>
     </head>
     <body>
-        <header class="c-header">
-            <div class="c-header__bg">
+        <header class="header" role="banner">
+            <div class="header__bg" aria-hidden="true">
                 <img src="./static/img/bg.png" alt="" />
             </div>
-            <div class="c-header__container">
-                <h1 class="u-title">Amos Blog</h1>
-                <p class="u-description">分享生活的点滴与感悟</p>
-                <div class="c-header__nav">
-                    <div class="u-toggle">☰</div>
-                    <nav class="u-list">
-                        <a class="u-item" href="#">My Tweet</a>
-                        <a class="u-item" href="#">My Bili</a>
+            <div class="header__container">
+                <h1 class="title">Amos Blog</h1>
+                <p class="description">分享生活的点滴与感悟</p>
+                <div class="header__nav">
+                    <button class="toggle" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav">
+                        ☰
+                    </button>
+                    <nav class="nav" id="main-nav" role="navigation" aria-label="主导航">
+                        <a class="nav__item" href="#" aria-label="我的推特">My Tweet</a>
+                        <a class="nav__item" href="#" aria-label="我的哔哩哔哩">My Bili</a>
                     </nav>
                 </div>
             </div>
         </header>
 
-        <div class="p-index">
-            <aside class="c-sidebar">
-                <div class="c-sidebar__search">
-                    <input class="u-input" type="text" placeholder="搜索..." />
+        <div class="index">
+            <aside class="sidebar" role="complementary" aria-label="侧边栏">
+                <div class="sidebar__search">
+                    <label for="search-input" class="sr-only">搜索博客内容</label>
+                    <input
+                        class="input"
+                        id="search-input"
+                        type="search"
+                        placeholder="搜索..."
+                        aria-label="搜索博客内容"
+                    />
                 </div>
-                <div class="c-sidebar__catogory">
-                    <h3 class="u-title">分类</h3>
-                    <ul class="u-list">
-                        <li class="u-item">前端</li>
-                        <li class="u-item">后端</li>
-                        <li class="u-item">设计</li>
+                <div class="sidebar__category">
+                    <h3 class="title">分类</h3>
+                    <ul class="list" role="list">
+                        <li class="list__item" role="listitem">
+                            <button type="button" aria-label="查看前端分类文章">前端</button>
+                        </li>
+                        <li class="list__item" role="listitem">
+                            <button type="button" aria-label="查看后端分类文章">后端</button>
+                        </li>
+                        <li class="list__item" role="listitem">
+                            <button type="button" aria-label="查看设计分类文章">设计</button>
+                        </li>
                     </ul>
                 </div>
             </aside>
 
-            <main class="c-main">
-                <div class="m-index-list">
-                    <article class="m-index-list__item">
-                        <h2 class="u-title">第一篇博客文章</h2>
-                        <div class="u-content">
+            <main class="main" role="main" aria-label="主要内容">
+                <section class="article-list" aria-label="博客文章列表">
+                    <article class="article-list__item">
+                        <header>
+                            <h2 class="title">第一篇博客文章</h2>
+                            <time datetime="2024-01-01" class="date">2024年1月1日</time>
+                        </header>
+                        <div class="content">
                             <p>欢迎来到我的博客！这里记录了我的生活和思考，期待与你分享更多。</p>
                             <p>今天的心情非常愉快，阳光明媚，适合出游。</p>
                         </div>
+                        <footer class="meta">
+                            <span class="category">分类：生活</span>
+                            <span class="tags">标签：日常, 心情</span>
+                        </footer>
                     </article>
-
-                    <!-- <article>
-                    <h2>第二篇博客文章</h2>
-                    <p>生活中总会有一些小确幸，比如一杯咖啡的香气，或者一段美好的音乐。</p>
-                    <p>希望大家都能在繁忙的生活中找到属于自己的小清新时刻。</p>
-                </article> -->
-                </div>
+                </section>
             </main>
         </div>
 
-        <div class="c-comment">
-            <h3 class="c-comment__title">留言区</h3>
-            <form class="c-comment__form">
-                <div class="c-comment__form-header">
-                    <div class="c-comment__form-item">
-                        <label class="u-label" for="type">选择反馈类型：</label>
-                        <select class="u-value" id="type">
+        <section class="comment" aria-label="留言区">
+            <h3 class="comment__title">留言区</h3>
+            <form class="comment__form" role="form" aria-label="提交留言表单">
+                <div class="comment__form-header">
+                    <div class="form-field">
+                        <label class="form-label" for="feedback-type">反馈类型：</label>
+                        <select
+                            class="form-control"
+                            id="feedback-type"
+                            name="type"
+                            required
+                            aria-describedby="type-help"
+                        >
+                          
                             <option value="suggestion">建议</option>
-                            <option value="bug">Bug</option>
+                            <option value="bug">Bug报告</option>
+                            <option value="question">问题咨询</option>
                         </select>
+                        <small id="type-help" class="form-help">请选择您的反馈类型</small>
                     </div>
-                    <div class="c-comment__form-item">
-                        <label class="u-label">是否公开：</label>
-                        <label class="u-value">
-                            <input type="radio" name="visibility" value="public" checked />
-                            公开
+
+                    <fieldset class="form-fieldset">
+                        <legend class="form-legend">是否公开：</legend>
+                        <div class="form-radio-group">
+                            <label class="form-radio">
+                                <input
+                                    type="radio"
+                                    name="visibility"
+                                    value="public"
+                                    checked
+                                    aria-describedby="visibility-help"
+                                />
+                                <span class="form-radio-label">公开</span>
+                            </label>
+                            <label class="form-radio">
+                                <input
+                                    type="radio"
+                                    name="visibility"
+                                    value="private"
+                                    aria-describedby="visibility-help"
+                                />
+                                <span class="form-radio-label">不公开</span>
+                            </label>
+                        </div>
+                        <small id="visibility-help" class="form-help">选择留言的可见性</small>
+                    </fieldset>
+
+                    <div class="form-field">
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="notify" aria-describedby="notify-help" />
+                            <span class="form-checkbox-label">接受回复提醒</span>
                         </label>
-                        <label class="u-value">
-                            <input type="radio" name="visibility" value="private" />
-                            不公开
-                        </label>
-                    </div>
-                    <div class="c-comment__form-item">
-                        <label class="u-value">
-                            <input type="checkbox" name="notify" />
-                            接受回复提醒
-                        </label>
+                        <small id="notify-help" class="form-help">勾选后将通过邮件接收回复通知</small>
                     </div>
                 </div>
-                <div class="c-comment__form-content">
-                    <label class="u-label" for="message">留言内容：</label>
-                    <textarea class="u-value" id="message" placeholder="在这里写下你的留言..."></textarea>
+                <div class="comment__form-content">
+                    <label class="label" for="message">留言内容：</label>
+                    <textarea
+                        class="value"
+                        id="message"
+                        name="message"
+                        placeholder="在这里写下你的留言..."
+                        required
+                        aria-describedby="message-help"
+                        minlength="10"
+                        maxlength="500"
+                    ></textarea>
+                    <small id="message-help" class="help">请输入10-500字的留言内容</small>
                 </div>
 
-                <div class="c-comment__form-footer">
-                    <button class="u-btn" type="submit">提交留言</button>
+                <div class="comment__form-footer">
+                    <button class="btn" type="submit" aria-describedby="submit-help">提交留言</button>
+                    <small id="submit-help" class="help">点击提交您的留言</small>
                 </div>
             </form>
-        </div>
+        </section>
 
-        <footer class="c-footer">
-            <p class="u-copyright">&copy; 2024 Amos Blog</p>
+        <footer class="footer" role="contentinfo">
+            <p class="copyright">&copy; 2024 Amos Blog. 保留所有权利。</p>
         </footer>
+
+        <!-- 屏幕阅读器专用的跳转链接 -->
+        <a href="#main-content" class="sr-only sr-only-focusable">跳转到主要内容</a>
+
+        <script>
+            // 移动端导航切换
+            document.addEventListener("DOMContentLoaded", function () {
+                const toggle = document.querySelector(".toggle");
+                const nav = document.querySelector(".nav");
+
+                if (toggle && nav) {
+                    toggle.addEventListener("click", function () {
+                        const isExpanded = this.getAttribute("aria-expanded") === "true";
+                        this.setAttribute("aria-expanded", !isExpanded);
+                        nav.classList.toggle("is-active");
+                    });
+
+                    // 点击外部关闭菜单
+                    document.addEventListener("click", function (e) {
+                        if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+                            toggle.setAttribute("aria-expanded", "false");
+                            nav.classList.remove("is-active");
+                        }
+                    });
+                }
+            });
+        </script>
+
+        <style>
+            /* 屏幕阅读器专用样式 */
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+                border: 0;
+            }
+
+            .sr-only-focusable:focus {
+                position: static;
+                width: auto;
+                height: auto;
+                padding: 0.5rem;
+                margin: 0;
+                overflow: visible;
+                clip: auto;
+                white-space: normal;
+                background: var(--primary-color);
+                color: var(--white);
+                text-decoration: none;
+                border-radius: 4px;
+            }
+
+            .help {
+                display: block;
+                font-size: 0.8rem;
+                color: var(--gray-dark);
+                margin-top: 0.25rem;
+            }
+
+            .date {
+                font-size: 0.9rem;
+                color: var(--gray-dark);
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .meta {
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid var(--gray-medium);
+                font-size: 0.9rem;
+                color: var(--gray-dark);
+            }
+
+            .meta span {
+                margin-right: 1rem;
+            }
+        </style>
     </body>
 </html>
