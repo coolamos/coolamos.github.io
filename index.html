@@ -1,244 +1,267 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Amos的个人博客，分享生活的点滴与感悟" />
-        <meta name="keywords" content="博客,生活,感悟,前端,技术" />
-        <meta name="author" content="Amos" />
-        <link href="./static/css/style.css" rel="stylesheet" />
-        <title>Amos Blog - 分享生活的点滴与感悟</title>
-    </head>
-    <body>
-        <header class="header" role="banner">
-            <div class="header__bg" aria-hidden="true">
-                <img src="./static/img/bg.png" alt="" />
-            </div>
-            <div class="header__container">
-                <h1 class="title">Amos Blog</h1>
-                <p class="description">分享生活的点滴与感悟</p>
-                <div class="header__nav">
-                    <button class="toggle" aria-label="切换导航菜单" aria-expanded="false" aria-controls="main-nav">
-                        ☰
-                    </button>
-                    <nav class="nav" id="main-nav" role="navigation" aria-label="主导航">
-                        <a class="nav__item" href="#" aria-label="我的推特">My Tweet</a>
-                        <a class="nav__item" href="#" aria-label="我的哔哩哔哩">My Bili</a>
-                    </nav>
-                </div>
-            </div>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 解码分析</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #2d3748;
+        }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: transform 0.2s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .result {
+            background: #f0f8f0;
+            border: 2px solid #48bb78;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .error {
+            background: #fed7d7;
+            border: 2px solid #e53e3e;
+            color: #c53030;
+        }
+        .info {
+            background: #ebf8ff;
+            border: 2px solid #3182ce;
+            color: #2c5282;
+        }
+        .jwt-section {
+            background: #fff5f5;
+            border-left-color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Base64 解码分析工具</h1>
 
-        <div class="index">
-            <aside class="sidebar" role="complementary" aria-label="侧边栏">
-                <div class="sidebar__search">
-                    <label for="search-input" class="sr-only">搜索博客内容</label>
-                    <input
-                        class="input"
-                        id="search-input"
-                        type="search"
-                        placeholder="搜索..."
-                        aria-label="搜索博客内容"
-                    />
-                </div>
-                <div class="sidebar__category">
-                    <h3 class="title">分类</h3>
-                    <ul class="list" role="list">
-                        <li class="list__item" role="listitem">
-                            <button type="button" aria-label="查看前端分类文章">前端</button>
-                        </li>
-                        <li class="list__item" role="listitem">
-                            <button type="button" aria-label="查看后端分类文章">后端</button>
-                        </li>
-                        <li class="list__item" role="listitem">
-                            <button type="button" aria-label="查看设计分类文章">设计</button>
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-
-            <main class="main" role="main" aria-label="主要内容">
-                <section class="article-list" aria-label="博客文章列表">
-                    <article class="article-list__item">
-                        <header>
-                            <h2 class="title">第一篇博客文章</h2>
-                            <time datetime="2024-01-01" class="date">2024年1月1日</time>
-                        </header>
-                        <div class="content">
-                            <p>欢迎来到我的博客！这里记录了我的生活和思考，期待与你分享更多。</p>
-                            <p>今天的心情非常愉快，阳光明媚，适合出游。</p>
-                        </div>
-                        <footer class="meta">
-                            <span class="category">分类：生活</span>
-                            <span class="tags">标签：日常, 心情</span>
-                        </footer>
-                    </article>
-                </section>
-            </main>
+        <div class="section">
+            <h3>📝 输入 Base64 编码</h3>
+            <textarea id="base64Input" placeholder="请粘贴你的 Base64 编码内容...">YWRtaW46ZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjFhV1FpT2pnM0xDSm5jbTkxY0NJNk5URXlMQ0p1WVcxbElqb2k1WkNSNWFTcDViQ25JaXdpYzJsbmJpSTZJbUV5WkRnek1HUmtNV1kyTmpZM05qZGtZMkpsT0RVNE5UZzNNMlJrWXpnd0lpd2laWGQ0WDNWelpYSnBaQ0k2SWxsaGJ5SXNJbVJsY0dGeWRHMWxiblFpT2lKa1pYWmxiRzl3WlhJaUxDSndhRzl1WlNJNklqRTBOemc1T0RVd05qZzJJaXdpYVdGMElqb3hOelUzTURNM016TTRMQ0psZUhBaU9qRTNOVGsyTWprek16aDkuMVRDZkU1dk5ya05uY2ZaZkk0c3l6ZlJlbWZ2TUhRT2ZvVlY4WTUtRWpyYw==</textarea>
+            <button onclick="decodeBase64()">🔓 解码</button>
+            <button onclick="clearAll()">🗑️ 清空</button>
         </div>
 
-        <section class="comment" aria-label="留言区">
-            <h3 class="comment__title">留言区</h3>
-            <form class="comment__form" role="form" aria-label="提交留言表单">
-                <div class="comment__form-header">
-                    <div class="form-field">
-                        <label class="form-label" for="feedback-type">反馈类型：</label>
-                        <select
-                            class="form-control"
-                            id="feedback-type"
-                            name="type"
-                            required
-                            aria-describedby="type-help"
-                        >
-                          
-                            <option value="suggestion">建议</option>
-                            <option value="bug">Bug报告</option>
-                            <option value="question">问题咨询</option>
-                        </select>
-                        <small id="type-help" class="form-help">请选择您的反馈类型</small>
-                    </div>
+        <div class="section">
+            <h3>📊 解码结果</h3>
+            <div id="result" class="result info">点击"解码"按钮开始分析...</div>
+        </div>
 
-                    <fieldset class="form-fieldset">
-                        <legend class="form-legend">是否公开：</legend>
-                        <div class="form-radio-group">
-                            <label class="form-radio">
-                                <input
-                                    type="radio"
-                                    name="visibility"
-                                    value="public"
-                                    checked
-                                    aria-describedby="visibility-help"
-                                />
-                                <span class="form-radio-label">公开</span>
-                            </label>
-                            <label class="form-radio">
-                                <input
-                                    type="radio"
-                                    name="visibility"
-                                    value="private"
-                                    aria-describedby="visibility-help"
-                                />
-                                <span class="form-radio-label">不公开</span>
-                            </label>
-                        </div>
-                        <small id="visibility-help" class="form-help">选择留言的可见性</small>
-                    </fieldset>
+        <div class="section jwt-section">
+            <h3>🔐 JWT Token 分析</h3>
+            <div id="jwtAnalysis" class="result info">如果检测到 JWT Token，这里将显示详细分析...</div>
+        </div>
 
-                    <div class="form-field">
-                        <label class="form-checkbox">
-                            <input type="checkbox" name="notify" aria-describedby="notify-help" />
-                            <span class="form-checkbox-label">接受回复提醒</span>
-                        </label>
-                        <small id="notify-help" class="form-help">勾选后将通过邮件接收回复通知</small>
-                    </div>
-                </div>
-                <div class="comment__form-content">
-                    <label class="label" for="message">留言内容：</label>
-                    <textarea
-                        class="value"
-                        id="message"
-                        name="message"
-                        placeholder="在这里写下你的留言..."
-                        required
-                        aria-describedby="message-help"
-                        minlength="10"
-                        maxlength="500"
-                    ></textarea>
-                    <small id="message-help" class="help">请输入10-500字的留言内容</small>
-                </div>
+        <div class="section">
+            <h3>💡 常见问题解答</h3>
+            <div class="result info">
+<strong>为什么会出现乱码？</strong>
 
-                <div class="comment__form-footer">
-                    <button class="btn" type="submit" aria-describedby="submit-help">提交留言</button>
-                    <small id="submit-help" class="help">点击提交您的留言</small>
-                </div>
-            </form>
-        </section>
+1. <strong>编码格式问题</strong>：Base64 解码后可能是二进制数据，不是纯文本
+2. <strong>字符集问题</strong>：解码工具使用了错误的字符编码（如 GBK 而非 UTF-8）
+3. <strong>数据类型</strong>：原始数据可能是图片、文件或其他二进制格式
+4. <strong>多层编码</strong>：数据可能经过了多次编码处理
 
-        <footer class="footer" role="contentinfo">
-            <p class="copyright">&copy; 2024 Amos Blog. 保留所有权利。</p>
-        </footer>
+<strong>解决方案：</strong>
+- 尝试不同的字符编码格式
+- 检查是否为 JWT Token 等特殊格式
+- 使用专业的在线工具进行解码
+            </div>
+        </div>
+    </div>
 
-        <!-- 屏幕阅读器专用的跳转链接 -->
-        <a href="#main-content" class="sr-only sr-only-focusable">跳转到主要内容</a>
+    <script>
+        function decodeBase64() {
+            const input = document.getElementById('base64Input').value.trim();
+            const resultDiv = document.getElementById('result');
+            const jwtDiv = document.getElementById('jwtAnalysis');
 
-        <script>
-            // 移动端导航切换
-            document.addEventListener("DOMContentLoaded", function () {
-                const toggle = document.querySelector(".toggle");
-                const nav = document.querySelector(".nav");
+            if (!input) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = '请输入 Base64 编码内容';
+                return;
+            }
 
-                if (toggle && nav) {
-                    toggle.addEventListener("click", function () {
-                        const isExpanded = this.getAttribute("aria-expanded") === "true";
-                        this.setAttribute("aria-expanded", !isExpanded);
-                        nav.classList.toggle("is-active");
-                    });
+            try {
+                // 解码 Base64
+                const decoded = atob(input);
 
-                    // 点击外部关闭菜单
-                    document.addEventListener("click", function (e) {
-                        if (!toggle.contains(e.target) && !nav.contains(e.target)) {
-                            toggle.setAttribute("aria-expanded", "false");
-                            nav.classList.remove("is-active");
-                        }
-                    });
+                // 尝试转换为 UTF-8
+                let utf8Text = '';
+                try {
+                    const uint8Array = new Uint8Array(decoded.split('').map(char => char.charCodeAt(0)));
+                    utf8Text = new TextDecoder('utf-8').decode(uint8Array);
+                } catch (e) {
+                    utf8Text = decoded;
                 }
-            });
-        </script>
 
-        <style>
-            /* 屏幕阅读器专用样式 */
-            .sr-only {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                padding: 0;
-                margin: -1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                white-space: nowrap;
-                border: 0;
-            }
+                resultDiv.className = 'result';
+                resultDiv.innerHTML = `
+<strong>原始解码结果：</strong>
+${decoded}
 
-            .sr-only-focusable:focus {
-                position: static;
-                width: auto;
-                height: auto;
-                padding: 0.5rem;
-                margin: 0;
-                overflow: visible;
-                clip: auto;
-                white-space: normal;
-                background: var(--primary-color);
-                color: var(--white);
-                text-decoration: none;
-                border-radius: 4px;
-            }
+<strong>UTF-8 解码结果：</strong>
+${utf8Text}
 
-            .help {
-                display: block;
-                font-size: 0.8rem;
-                color: var(--gray-dark);
-                margin-top: 0.25rem;
-            }
+<strong>十六进制表示：</strong>
+${decoded.split('').map(char => char.charCodeAt(0).toString(16).padStart(2, '0')).join(' ')}
 
-            .date {
-                font-size: 0.9rem;
-                color: var(--gray-dark);
-                margin-bottom: 0.5rem;
-                display: block;
-            }
+<strong>字符编码分析：</strong>
+- 长度: ${decoded.length} 字节
+- 是否包含非打印字符: ${/[\x00-\x1F\x7F-\x9F]/.test(decoded) ? '是' : '否'}
+- 可能的数据类型: ${analyzeDataType(decoded)}
+                `;
 
-            .meta {
-                margin-top: 1rem;
-                padding-top: 1rem;
-                border-top: 1px solid var(--gray-medium);
-                font-size: 0.9rem;
-                color: var(--gray-dark);
-            }
+                // JWT 分析
+                analyzeJWT(utf8Text, jwtDiv);
 
-            .meta span {
-                margin-right: 1rem;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `解码失败: ${error.message}`;
             }
-        </style>
-    </body>
+        }
+
+        function analyzeDataType(data) {
+            if (data.startsWith('admin:')) {
+                return '可能是认证信息 (username:password 或 username:token)';
+            } else if (data.includes('.') && data.split('.').length === 3) {
+                return '可能是 JWT Token';
+            } else if (data.startsWith('{') && data.endsWith('}')) {
+                return '可能是 JSON 数据';
+            } else if (/^[\x20-\x7E]*$/.test(data)) {
+                return '纯文本数据';
+            } else {
+                return '二进制数据或其他格式';
+            }
+        }
+
+        function analyzeJWT(text, jwtDiv) {
+            if (text.includes('admin:') && text.includes('.')) {
+                const parts = text.split(':');
+                if (parts.length >= 2) {
+                    const possibleJWT = parts[1];
+                    const jwtParts = possibleJWT.split('.');
+
+                    if (jwtParts.length === 3) {
+                        jwtDiv.className = 'result';
+                        try {
+                            const header = JSON.parse(atob(jwtParts[0]));
+                            const payload = JSON.parse(atob(jwtParts[1]));
+
+                            jwtDiv.innerHTML = `
+<strong>🔍 JWT Token 检测成功！</strong>
+
+<strong>Header (头部):</strong>
+${JSON.stringify(header, null, 2)}
+
+<strong>Payload (载荷):</strong>
+${JSON.stringify(payload, null, 2)}
+
+<strong>Signature (签名):</strong>
+${jwtParts[2]}
+
+<strong>🕒 时间戳解析：</strong>
+- iat (签发时间): ${payload.iat ? new Date(payload.iat * 1000).toLocaleString('zh-CN') : '未设置'}
+- exp (过期时间): ${payload.exp ? new Date(payload.exp * 1000).toLocaleString('zh-CN') : '未设置'}
+
+<strong>📋 Token 信息：</strong>
+- 用户ID: ${payload.uid || '未知'}
+- 用户组: ${payload.group || '未知'}
+- 部门: ${payload.department || '未知'}
+- 手机: ${payload.phone || '未知'}
+                            `;
+                        } catch (e) {
+                            jwtDiv.innerHTML = `
+<strong>检测到可能的 JWT Token，但解析失败：</strong>
+${e.message}
+
+<strong>JWT 各部分：</strong>
+- Header: ${jwtParts[0]}
+- Payload: ${jwtParts[1]}
+- Signature: ${jwtParts[2]}
+                            `;
+                        }
+                    } else {
+                        jwtDiv.className = 'result info';
+                        jwtDiv.textContent = '未检测到标准 JWT Token 格式';
+                    }
+                }
+            } else {
+                jwtDiv.className = 'result info';
+                jwtDiv.textContent = '当前数据不包含 JWT Token';
+            }
+        }
+
+        function clearAll() {
+            document.getElementById('base64Input').value = '';
+            document.getElementById('result').className = 'result info';
+            document.getElementById('result').textContent = '点击"解码"按钮开始分析...';
+            document.getElementById('jwtAnalysis').className = 'result info';
+            document.getElementById('jwtAnalysis').textContent = '如果检测到 JWT Token，这里将显示详细分析...';
+        }
+
+        // 页面加载时自动解码示例
+        window.onload = function() {
+            decodeBase64();
+        };
+    </script>
+</body>
 </html>
